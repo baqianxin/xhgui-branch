@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Contains logic for getting/creating/removing profile records.
  */
@@ -43,6 +44,13 @@ class Xhgui_Profiles
     {
         return $this->_wrap($this->_collection->findOne(array(
             '_id' => new MongoId($id)
+        )));
+    }
+
+    public function getByRid($rid)
+    {
+        return $this->_wrap($this->_collection->findOne(array(
+            'request_id' => $rid
         )));
     }
 
@@ -169,7 +177,7 @@ class Xhgui_Profiles
                 )
             ),
             array('$sort' => array('_id' => 1)),
-            ),
+        ),
             array('cursor' => array('batchSize' => 0))
         );
 

@@ -65,7 +65,10 @@ class Xhgui_Controller_Run extends Xhgui_Controller
     {
         $request = $this->_app->request();
         $detailCount = $this->_app->config('detail.count');
-        $result = $this->_profiles->get($request->get('id'));
+        if($request->get('rid')){
+            $result = $this->_profiles->getByRid($request->get('rid'));
+        }else
+            $result = $this->_profiles->get($request->get('id'));
 
         $result->calculateSelf();
 

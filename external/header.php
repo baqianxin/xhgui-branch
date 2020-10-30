@@ -111,6 +111,19 @@ if ($extension == 'uprofiler' && extension_loaded('uprofiler')) {
     throw new Exception("Please check the extension name in config/config.default.php \r\n,you can use the 'php -m' command.", 1);
 }
 
+function shutdown()
+{
+    // This is our shutdown function, in
+    // here we can do any last operations
+    // before the script is complete.
+    header("XHProf:XXXXXXXX");
+    $http_response_header = ['"XHProf:XXXXXXXX"'];
+    header('X-Powered-By: PHP/4.4.0');
+    echo 'Script executed with success', PHP_EOL;
+}
+
+//register_shutdown_function('shutdown');
+//
 register_shutdown_function(
     function () {
         $extension = Xhgui_Config::read('extension');
@@ -127,10 +140,10 @@ register_shutdown_function(
                     if(isset($val['n'])&&$val['n'] === 'sql'&&isset($val['a'])&&isset($val['a']['sql'])){
                         $_time_tmp = (isset($val['b'][0])&&isset($val['e'][0]))?($val['e'][0]-$val['b'][0]):0;
                         if(!empty($val['a']['sql'])){
-                            $data['sql'][] = array(
+                            $data['sql'][] = [
                                 'time' => $_time_tmp,
                                 'sql' => $val['a']['sql']
-                            );
+                            ];
                         }
                     }
                 }
@@ -189,7 +202,9 @@ register_shutdown_function(
             $config = Xhgui_Config::all();
             $config += array('db.options' => array());
             $saver = Xhgui_Saver::factory($config);
+            $data['request_id']= $_SERVER['HTTP_REQUEST_ID'];
             $saver->save($data);
+
         } catch (Exception $e) {
             error_log('xhgui - ' . $e->getMessage());
         }
