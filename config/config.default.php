@@ -21,8 +21,8 @@ return array(
     // Needed for file save handler. Beware of file locking. You can adujst this file path
     // to reduce locking problems (eg uniqid, time ...)
     //'save.handler.filename' => __DIR__.'/../data/xhgui_'.date('Ymd').'.dat',
-    'db.host' => 'mongodb://mongodb:27017',
-    'db.db' => 'xhprof',
+    'db.host' => getenv('XHGUI_MONGO_HOST')?:'mongodb://mongodb:27017',
+    'db.db' => getenv('XHGUI_MONGO_HOST') ?:'xhprof',
 
     // Allows you to pass additional options like replicaSet to MongoClient.
     // 'username', 'password' and 'db' (where the user is added)
