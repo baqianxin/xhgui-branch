@@ -33,6 +33,9 @@ return array(
     'page.limit' => 25,
 
     'profiler.enable' => function () {
+        if(getenv('APP_ENV')==='prod'){
+            return false;
+        }
         return true;//isset($_GET['debug']);
     },
     'profiler.simple_url' => function($url) {

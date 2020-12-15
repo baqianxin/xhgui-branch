@@ -109,18 +109,6 @@ if ($extension == 'uprofiler' && extension_loaded('uprofiler')) {
 } else {
     throw new Exception("Please check the extension name in config/config.default.php \r\n,you can use the 'php -m' command.", 1);
 }
-
-function shutdown()
-{
-    // This is our shutdown function, in
-    // here we can do any last operations
-    // before the script is complete.
-    header('X-Powered-By: oom-php7.3');
-    echo 'Script executed with success', PHP_EOL;
-}
-
-//register_shutdown_function('shutdown');
-//
 register_shutdown_function(
     function () {
         $extension = Xhgui_Config::read('extension');
@@ -201,8 +189,6 @@ register_shutdown_function(
             $saver = Xhgui_Saver::factory($config);
             $data['request_id'] = $_SERVER['HTTP_REQUEST_ID'];
             $saver->save($data);
-            header('X-xxxx: oom-php7.3');
-
         } catch (Exception $e) {
             error_log('xhgui - ' . $e->getMessage());
         }
