@@ -22,7 +22,7 @@ return array(
     // to reduce locking problems (eg uniqid, time ...)
     //'save.handler.filename' => __DIR__.'/../data/xhgui_'.date('Ymd').'.dat',
     'db.host' => getenv('XHGUI_MONGO_HOST')?:'mongodb://mongodb:27017',
-    'db.db' => getenv('XHGUI_MONGO_HOST') ?:'xhprof',
+    'db.db' => getenv('XHGUI_DB_NAME') ?:'xhprof',
 
     // Allows you to pass additional options like replicaSet to MongoClient.
     // 'username', 'password' and 'db' (where the user is added)
